@@ -1,0 +1,56 @@
+@(numCorrect : String)(numTotal: String)(nextTest : String)(username : String)(login: String)
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>About Us</title>
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+
+
+<body>
+
+<div class="container">
+  <div class="header" align = "center"><a href="#"><img src="@routes.Assets.at("images/ups_logo2.jpg")" name="UPS_logo" width="600" height="130" id="UPS_logo" 
+  style="background-color: #C6D580; display:block;" /></a>
+  <font size = "2" color="white">@username <a href = "/logout"><font color ="white">@login</font></a></font> 
+    <!-- end .header --></div>
+  <div class="sidebar1">
+    <ul class="nav">
+      <li><a href="@routes.Application.index()">Home</a></li>
+      <li><a href="@routes.Application.login()">Log In/Register</a></li>
+      <li><a href="#">Community</a></li>
+      <li><a href="@routes.Application.resources()">Resources</a> </li>
+      <li><a href="@routes.Application.about()">About Us</a></li>
+    </ul>
+    <h2 align="center" id="myTitle"><font size = "3">Terms of Use</font></h2> 
+    <p>By using this website, you agree to our terms of use.
+      </p>
+    </p>
+    <p>All content on this website is under copyright law and may not be used without permission. </p>
+  </div>
+  <div class="content">
+    <h1 align="center">Congratulations</h1>
+	<h2 align="center" id="myTitle2">You got @numCorrect out of @numTotal correct</h2>
+
+    <p>&nbsp; </p>
+    <p> &nbsp;</p>
+	<p align="center">
+		<a href= @nextTest>
+    		<button>Start A New Test</button>
+		</a>
+			
+		<a href="/">
+    		<button>Return to Home Page</button>
+		</a>
+	</p>
+	</p>
+  </div>
+  <div class="footer"><center>If you have any concerns or questions, please contact us <a href="#">here</a></center>
+    <h1><center>
+  </center>
+  </h1>
+    <!-- end .footer --></div>
+<!-- end .container --></div>
+</body>
+</html>

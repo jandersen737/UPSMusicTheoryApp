@@ -1,0 +1,77 @@
+@(noteLoc: List[String])(username: String)(login: String)
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Aural Skills Practice</title>
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+<script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+<script type="text/javascript" src="@routes.Assets.at("javascripts/checkauralanswer.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("javascripts/playnotes.js")"></script>
+</head>
+
+</body>
+
+<body>
+
+<div class="container">
+<div class="header" align = "center"><a href="#"><img src="@routes.Assets.at("images/ups_logo2.jpg")" name="UPS_logo" width="600" height="130" id="UPS_logo" 
+  style="background-color: #C6D580; display:block;" /></a>
+  <font size = "2" color="white">@username <a href = "/logout"><font color ="white">@login</font></a></font>
+    <!-- end .header --></div>
+  <div class="sidebar1">
+    <ul class="nav">
+      <li><a href="@routes.Application.index()">Home</a></li>
+      <li><a href="@routes.Application.login()">Log In/Register</a></li>
+      <li><a href="#">Community</a></li>
+      <li><a href="@routes.Application.resources()">Resources</a> </li>
+      <li><a href="@routes.Application.about()">About Us</a></li>
+    </ul>
+    <h2 align="center" id="myTitle"><font size = "3">Terms of Use</font></h2> 
+    <p>By using this website, you agree to our terms of use.</p>
+    <p>All content on this website is under copyright law and may not be used without permission. 
+      <!-- end .sidebar1 --></p>
+      </p>
+    </p>
+  </div>
+  <div class="content">
+
+	<h1 align="center" id="myTitle">Aural Skills Practice: 20th Century Chords</h1>
+	<p> &nbsp;</p>
+	<h2 align="center" id="myTitle2"></h2>
+	@for((note,index)<-noteLoc.zipWithIndex){
+		<audio id="note@index" preload="auto">
+   			<source src="@routes.Assets.at("audio/" +note+ ".mp3")">
+		</audio>
+	}
+	<p align="center">&nbsp;</p>
+	<p align="center">
+		<button onclick="playChord()">Play Chord</button>
+		<button onclick="playNotesAscending()">Play Arpeggio</button>
+	</p>
+	<p align="center">&nbsp;</p>
+	<p align="center">Answer Choices:</p>
+	<p align="center">
+	<p align="center">
+		<button onclick="checkAuralAnswer('Farben Chord');">Farben Chord</button>
+		<button onclick="checkAuralAnswer('Mystic Chord');">Mystic Chord</button>
+		<button onclick="checkAuralAnswer('Petrushka Chord');">Petrushka Chord</button>
+		<button onclick="checkAuralAnswer('Rite of Spring Chord');">Rite of Spring Chord</button>
+		<button onclick="checkAuralAnswer('Split Third Chord');">Split Third Chord</button>
+	</p>
+	<p align="center" id="results"></p>
+	<p>&nbsp;</p>
+	<p align="center">
+	<a href="/auralexercises/20thCenturyChords">
+    		<button>Next</button>
+		</a>
+	</p>
+	<p>&nbsp;</p>
+<div class="footer"><center>If you have any concerns or questions, please contact us <a href="#">here</a></center>
+    <h1><center>
+  </center>
+  </h1>
+    <!-- end .footer --></div>
+<!-- end .container --></div>
+</body>
+</html>

@@ -1,0 +1,24 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                           		controllers.Application.index()
+GET		/auralexercises/20thCenturyChords	controllers.Application.aural20thCchords()
+GET		/auralexercises/JazzChords			controllers.Application.auralJazzChords()
+GET		/auralexercises/JazzScales			controllers.Application.auralJazzScales()
+GET		/auralexercises/verifyauralanswer	controllers.AnswerValidator.verifyAuralAnswer()
+GET		/auraltest/20thCenturyChords		controllers.Application.aural20thCchordsTest()
+GET		/auraltest/JazzChords				controllers.Application.auralJazzChordsTest()
+GET		/auraltest/JazzScales				controllers.Application.auralJazzScalesTest()
+GET		/auraltest/endTest					controllers.Application.endTest()
+GET     /about								controllers.Application.about()
+GET  	/resources      					controllers.Application.resources()
+GET  	/login        						controllers.Application.login()
+POST	/login/success						controllers.UserDatabase.loginSuccess()
+GET		/logout								controllers.UserDatabase.logout()
+GET  	/register       					controllers.Application.register()
+POST	/register/submit					controllers.UserDatabase.registerSubmit()
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)

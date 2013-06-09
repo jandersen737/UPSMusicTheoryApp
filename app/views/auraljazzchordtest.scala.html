@@ -1,0 +1,88 @@
+@(noteLoc: List[String])(numCorrect : String)(numTotal: String)(finished : String)(username: String)(login: String)
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Aural Skills Test</title>
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+<script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+<script type="text/javascript" src="@routes.Assets.at("javascripts/checkauralanswer.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("javascripts/playnotes.js")"></script>
+</head>
+
+</body>
+
+<body>
+
+<div class="container">
+<div class="header" align = "center"><a href="#"><img src="@routes.Assets.at("images/ups_logo2.jpg")" name="UPS_logo" width="600" height="130" id="UPS_logo" 
+  style="background-color: #C6D580; display:block;" /></a>
+  <font size = "2" color="white">@username <a href = "/logout"><font color ="white">@login</font></a></font>
+    <!-- end .header --></div>
+  <div class="sidebar1">
+    <ul class="nav">
+      <li><a href="@routes.Application.index()">Home</a></li>
+      <li><a href="@routes.Application.login()">Log In/Register</a></li>
+      <li><a href="#">Community</a></li>
+      <li><a href="@routes.Application.resources()">Resources</a> </li>
+      <li><a href="@routes.Application.about()">About Us</a></li>
+    </ul>
+    <h2 align="center" id="myTitle"><font size = "3">Terms of Use</font></h2> 
+    <p>By using this website, you agree to our terms of use.</p>
+    <p>All content on this website is under copyright law and may not be used without permission. 
+      <!-- end .sidebar1 --></p>
+      </p>
+    </p>
+  </div>
+  <div class="content">
+
+	<h1 align="center" id="myTitle">Aural Skills Test: Jazz Chords</h1>
+	<p> &nbsp;</p>
+	<h2 align="center" id="myTitle2"></h2>
+	@for((note,index)<-noteLoc.zipWithIndex){
+		<audio id="note@index" preload="auto">
+   			<source src="@routes.Assets.at("audio/" +note+ ".mp3")">
+		</audio>
+	}
+	<p align="center">&nbsp;</p>
+	<p align="center">
+		<button onclick="playChord()">Play Chord</button>
+		<button onclick="playNotesAscending()">Play Arpeggio</button>
+	</p>
+	
+	<p align="center">&nbsp;</p>
+	<p align="center">Answer Choices:</p>
+	<p align="center">
+	<p align="center">
+		<button onclick="checkAuralAnswer('Dominant (#5) (#9)');">Dominant (#5) (#9)</button>
+		<button onclick="checkAuralAnswer('Dominant (#5) (b9)');">Dominant (#5) (b9)</button>
+		<button onclick="checkAuralAnswer('Dominant (#9)');">Dominant (#9)</button>
+		<button onclick="checkAuralAnswer('Dominant (b9)');">Dominant (b9)</button>
+		<button onclick="checkAuralAnswer('Major 6-9');">Major 6-9</button>
+		<button onclick="checkAuralAnswer('Major 9 (#5)');">Major 9 (#5)</button>
+		<button onclick="checkAuralAnswer('Minor 6-9');">Minor 6-9</button>
+		<button onclick="checkAuralAnswer('Minor 7 (Maj 9)');">Minor 7 (Maj 9)</button>
+	</p>
+	<p align="center" id="results"></p>
+	<p align="center">You got @numCorrect correct out of @numTotal</p>
+	<p align="center">
+		<a href="/auraltest/JazzChords">
+    		<button>@finished</button>
+		</a>
+	</p>
+	<p>&nbsp;</p>
+	<p align="center">
+		<a href="/auraltest/endTest">
+    		<button>End Test Now</button>
+		</a>
+	</p>
+	<p>&nbsp;</p>
+<div class="footer"><center>If you have any concerns or questions, please contact us <a href="#">here</a></center>
+    <h1><center>
+  </center>
+  </h1>
+    <!-- end .footer --></div>
+<!-- end .container --></div>
+</body>
+</html>

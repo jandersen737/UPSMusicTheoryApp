@@ -1,15 +1,38 @@
-@(title: String)(content: Html)
+@(title: String, username : String)(headerContent : Html)(content: Html)
 
 <!DOCTYPE html>
-
 <html>
-    <head>
-        <title>@title</title>
-        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
-        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
-        <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
-    </head>
-    <body>
-        @content
-    </body>
+<head>
+<title>@title</title>
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+<link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+<script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+@headerContent
+</head>
+<body>
+	<div class="container">
+		@header(username)
+		<div class="sidebar1">
+			<ul class="nav">
+				<li><a href="@routes.Application.index()">Home</a></li>
+				<li><a href="@routes.Application.login()">Log In/Register</a></li>
+				<li><a href="#">Community</a></li>
+				<li><a href="@routes.Application.resources()">Resources</a></li>
+				<li><a href="@routes.Application.about()">About Us</a></li>
+			</ul>
+			<h2 align="center" id="myTitle">
+				<font size="3">Terms of Use</font>
+			</h2>
+			<p>By using this website, you agree to our terms of use.</p>
+			<p>
+				All content on this website is under copyright law and may not be
+				used without permission.
+			</p>
+		</div>
+		<div class="content">
+			@content
+		</div>
+		@footer()
+	</div>
+</body>
 </html>

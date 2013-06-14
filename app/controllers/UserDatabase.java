@@ -22,7 +22,7 @@ public class UserDatabase extends Controller {
     			.findUnique();
 		if(userinfo != null){
 			String regProb = "I'm sorry, but that username has already been taken.  Please try another.";
-			String logStatus = session().get("loggedIn");
+			String logStatus = session().get("username");
 	    	String temp = "";
 	    	if(logStatus != null){
 	    		logStatus = "Welcome, " + logStatus + "!";
@@ -36,7 +36,7 @@ public class UserDatabase extends Controller {
 			newuser.password = password;
 			newuser.teacherEmail = teacherEmail;
 			Ebean.save(newuser);
-			String logStatus = session().get("loggedIn");
+			String logStatus = session().get("username");
 	    	String temp = "";
 	    	if(logStatus != null){
 	    		logStatus = "Welcome, " + logStatus + "!";
@@ -54,7 +54,7 @@ public class UserDatabase extends Controller {
     			.findUnique();
 		if(userinfo == null){
 			String loginProb = "I'm sorry, but your username is incorrect";
-			String logStatus = session().get("loggedIn");
+			String logStatus = session().get("username");
 	    	String temp = "";
 	    	if(logStatus != null){
 	    		logStatus = "Welcome, " + logStatus + "!";
@@ -64,7 +64,7 @@ public class UserDatabase extends Controller {
 		}
 		else if(!userinfo.password.equals(password)){
 			String loginProb = "I'm sorry, but your password is incorrect";
-			String logStatus = session().get("loggedIn");
+			String logStatus = session().get("username");
 	    	String temp = "";
 	    	if(logStatus != null){
 	    		logStatus = "Welcome, " + logStatus + "!";
@@ -73,18 +73,17 @@ public class UserDatabase extends Controller {
 			return ok(login.render(loginProb, logStatus, temp));
 		}
 		else{
-			session("loggedIn", username);
-			String welcome = "Welcome, " + username + "!";
-			return ok(index.render(welcome, "(logout)"));
+			session("username", username);
+			return ok(index.render(username));
 		}
 	}
 	
 	public static Result logout(){
-		String login = session().get("loggedIn");
+		String login = session().get("username");
 		if(login != null){
-			session().remove("loggedIn");
+			session().remove("username");
 		}
-		return ok(index.render(null, ""));
+		return ok(index.render(null));
 	}
 	
 //	AudioFile farbenC = new AudioFile();

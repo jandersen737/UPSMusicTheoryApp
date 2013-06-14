@@ -1,0 +1,14 @@
+@(username : String)
+
+<div class="header" align = "center">
+	<a href="#">
+		<img src="@routes.Assets.at("images/ups_logo2.jpg")" name="UPS_logo" width="600" height="130" id="UPS_logo" style="background-color: #C6D580; display:block;" />
+	</a>
+  <font size = "2" color="white">@if(username != null) {
+  									Welcome, @username! <a href="/logout"><font color="white">(logout)</font></a>
+  								 } else {
+  								 	Please <a href="@routes.Application.login()">login</a>
+  								 }
+  </font>
+  <!-- end .header -->
+</div>

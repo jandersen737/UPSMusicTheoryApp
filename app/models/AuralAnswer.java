@@ -26,6 +26,12 @@ public class AuralAnswer extends Model{
 	@Constraints.Required
 	public String answer;
 
+	public AuralAnswer(String exerciseType, String name, String answer)
+	{
+		this.exercise_type = exerciseType;
+		this.name = name;
+		this.answer = answer;
+	}
 	
 	public static Finder<Long, AuralAnswer> find = new Finder<Long, AuralAnswer>(
 			Long.class,AuralAnswer.class);

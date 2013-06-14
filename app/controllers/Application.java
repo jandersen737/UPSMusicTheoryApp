@@ -3,10 +3,14 @@ package controllers;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 
 import com.avaje.ebean.Ebean;
+import com.google.common.base.Function;
+import com.google.common.collect.Collections2;
+import com.google.common.collect.Lists;
 
 import models.AudioFile;
 import models.AuralAnswer;
@@ -17,16 +21,22 @@ import play.mvc.Result;
 import views.html.*;
 
 public class Application extends Controller {
-static final int maxNote = 26;
-  
+	static final int maxNote = 26;
+	private static final Function<AuralAnswer, String> ANSWER_NAME_EXTRACTOR = new Function<AuralAnswer, String>()
+	{
+		@Override
+		public String apply(AuralAnswer a)
+		{
+			if(a == null)
+				return null;
+			
+			return a.name;
+		}
+	};
+	
     public static Result index() {
-    	String logStatus = session().get("loggedIn");
-    	String temp = "";
-    	if(logStatus != null){
-    		logStatus = "Welcome, " + logStatus + "!";
-    		temp = "(logout)";
-    	}
-    	return ok(index.render(logStatus, temp));
+    	String username = session("username");
+    	return ok(index.render(username));
     }
   
     public static Result about(){
@@ -99,12 +109,15 @@ static final int maxNote = 26;
     		.eq("exercise_type", exerciseType)
     		.findList();
 
+    	Collection<String> allAnswers = Collections2.transform(list, ANSWER_NAME_EXTRACTOR);
+    	
     	int listSize = list.size();
         int n = (rand.nextInt(listSize-1))+ 1;
-        AuralAnswer exercise = list.get(n);
-        String exercise2 = exercise.name;
-        String notes = exercise.answer;
-    	session("audioFile", exercise2);
+        AuralAnswer auralAnswer = list.get(n);
+        
+        String exercise2 = auralAnswer.name;
+        String notes = auralAnswer.answer;
+    	session("answer", exercise2);
     	String delims = "[,]";
     	String[] noteArray = (notes.split(delims));
     	int[] noteIntArray = new int[noteArray.length];
@@ -132,14 +145,9 @@ static final int maxNote = 26;
     	    noteLoc.add(audLocation);			
     	}
     	
-    	
-		String logStatus = session().get("loggedIn");
-    	String temp = "";
-    	if(logStatus != null){
-    		logStatus = "Welcome, " + logStatus + "!";
-    		temp = "(logout)";
-    	}
-    	return ok(auraljazzchordexercises.render(noteLoc, logStatus, temp));	
+		String username = session().get("username");
+		
+    	return ok(exercise.render(noteLoc, "Jazz Chords", "JazzChords", allAnswers, username));	
     }
     
     public static Result aural20thCchords(){

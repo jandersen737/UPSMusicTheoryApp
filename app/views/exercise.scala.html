@@ -1,0 +1,38 @@
+@(noteLoc: java.util.List[String])(pageTitle : String)(nextExercise : String)(answers : java.util.Collection[String])(username: String)
+
+@main("Aural Skills Exercise", username){
+	<script type="text/javascript" src="@routes.Assets.at("javascripts/checkauralanswer.js")"></script>
+	<script type="text/javascript" src="@routes.Assets.at("javascripts/playnotes.js")"></script>
+}{
+	<h1 align="center" id="myTitle">Aural Skills Practice: @pageTitle</h1>
+	<p> &nbsp;</p>
+	<h2 align="center" id="myTitle2"></h2>
+	@for((note,index)<-noteLoc.zipWithIndex){
+		<audio id="note@index" preload="auto">
+   			<source src="@routes.Assets.at("audio/" +note+ ".mp3")">
+		</audio>
+	}
+	<p align="center">&nbsp;</p>
+	<p align="center">
+		<button onclick="playChord()">Play Chord</button>
+		<button onclick="playNotesAscending()">Play Arpeggio</button>
+	</p>
+	
+	<p align="center">&nbsp;</p>
+	<p align="center">Answer Choices:</p>
+	<p align="center">
+	<p align="center">
+		@for(answer <- answers) {
+			<button onclick="checkAuralAnswer('@answer');">@answer</button>
+		}
+	</p>
+	<p align="center" id="results"></p>
+	<p>&nbsp;</p>
+	<p align="center">
+		<a href="/auralexercises/@nextExercise">
+    		<button>Next</button>
+		</a>
+	</p>
+	<p>&nbsp;</p>
+
+}
